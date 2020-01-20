@@ -18,11 +18,11 @@ Column {data-width=1000}
 
 | | |
 |:------------------------------------------|----------------:|
-|Recently, a chart from the *World In Figures* portal of the *The Economist* titled the ["Fastest Growing Cities"](https://worldinfigures.com/rankings/index/24) has been [widely shared](https://twitter.com/TheEconomist/status/1214593942307651584) and discussed on social media platforms. What surprised many people was that three Indian cities, all from the state of Kerala, appeared among the top 10 fastest growing cities in the world. Especially Malappuram, a Muslim-majority region, occupying the first slot gave rise to several reactions tainted with religious ill will. Some attributed it to the recent wave of migration of labourers from the North. While it is well known that Kerala has a rather unusually spread-out spatial distribution of settlements and that the state underwent a major exit of the workforce from the agricultural sector over the past decades, in the public imagination the cities and towns of Kerala have never been the fastest-growing urban centres of India. In this article, we try to unpack some of the numbers that went into making this chart and check how appropriate it is to term these cities as the fastest growing. <br><br> Firstly, since what you call a "city" and what is meant by "fast growth" are quite subjective, let us understand what information the chart actually carries. In fact, the plot shows the urban agglomerations with a population of 1 million or more as of 2015, arranged in terms of the projected growth in their population for 2015-20. The term Urban Agglomeration (UA) refers to a cluster of urbanised areas that are very near each other, which could be treated as one single city for most practical purposes. Often a UA includes multiple administrative units. | ![*The Economist* Tweet](images/economist_tweet.jpeg){width=260px}|
+|Recently, a chart from the *World In Figures* portal of *The Economist* titled the [Fastest-Growing Cities](https://worldinfigures.com/rankings/index/24) has been [widely shared](https://twitter.com/TheEconomist/status/1214593942307651584) and discussed on social media platforms. What surprised many people was that three Indian cities, all from the state of Kerala, appeared among the top 10 fastest growing cities in the world. Especially Malappuram, a Muslim-majority region, occupying the first slot gave rise to several reactions tainted with religious ill will. Some attributed it to the recent wave of migration of labourers from the North. While it is well known that Kerala has a rather unusually spread-out spatial distribution of settlements and that the state underwent a major exit of the workforce from the agricultural sector over the past decades, in the public imagination the cities and towns of Kerala have never been the fastest-growing urban centres of India. In this article, we try to unpack some of the numbers that went into making this chart and check how appropriate it is to term these cities as the fastest growing. <br><br> Firstly, since what you call a "city" and what is meant by "fast growth" are quite subjective, let us understand what information the chart actually carries. It shows the urban agglomerations with a population of 1 million or more as of 2015, arranged in terms of the projected growth in their population for 2015-20. The term Urban Agglomeration (UA) refers to a cluster of urbanised areas that are so near each other that they could be treated as one single city for most practical purposes. Often a UA includes multiple administrative units. | ![*The Economist* Tweet](images/economist_tweet.jpeg){width=260px}|
 
 #### **What Does the Data Say?**
 
-According to *The Economist* website, the *the fastest-growing cities* chart was prepared using data from the United Nations Population Division. This data can be found on the [World Urbanization Prospects 2018](https://population.un.org/wup/) website, in the Urban Agglomerations section. As described in their [working paper](https://population.un.org/wup/Publications/Files/WUP2018-Methodology.pdf), they gathered population data from all over the world and made projections for the years for which there was no data available. The UA-level population numbers for India are derived from the Census of India data sets.   
+According to *The Economist* website, the the fastest-growing cities chart was prepared using data from the United Nations Population Division. This data can be found on the [World Urbanization Prospects 2018](https://population.un.org/wup/) website, in the Urban Agglomerations section. As described in their [working paper](https://population.un.org/wup/Publications/Files/WUP2018-Methodology.pdf), they gathered population data from all over the world and made projections for the years for which there was no data available. The UA-level population numbers for India are derived from the Census of India data sets.   
 
 We now take a look at the UN Population Division data and check what it tells us about the growth of urban agglomerations around the world.
 
@@ -161,7 +161,8 @@ pop_ts %>%
 
 This chart captures the growth in area (in square km) and population of the Kerala UAs Malappuram, Kozhikode, and Kollam and compares them against some of the larger UAs in the country. A pattern that stands out is that the Kerala UAs had a massive manyfold increase in their area in the 2011 census, while the population did not jump up as much. This is clearly because the Census in 2011 recognised significantly more towns and outgrowths as urban, and included many of those in the nearest UA. Although the natural growth in population and increase in population density played a role in more areas getting classified as urban, the most important factor was the fast decline in agricultural employment in and around the existing urban centres. As we see in the figure below, a major part of this change happened during the 1990s, and the 2011 Census in fact did a catch-up job in reclassifying several villages as census towns. In that sense, this jump in urbanisation is a discontinuity introduced by how the Census machinery operates. The actual transition of the workforce out of agriculture arguably happened in a smooth and gradual manner.  
 
-```{r fig.height=6, fig.width=8}
+
+```{r fig.height=8, fig.width=6}
 workers <- read_csv('data/male_main_workers.csv')
 
 workers %>% 
@@ -177,15 +178,15 @@ workers %>%
     theme_minimal() +
     xlab("Year") +
     ylab("Non-Agricultural Labour %") +
-    ylim(c(0, 119)) +
-    xlim(c(1990, 2021)) +
+    #ylim(c(0, 105)) +
+    xlim(c(1990, 2016)) +
     labs(caption = "Source: Census 1991, 2001 & 2011") +
     scale_colour_discrete(guide = 'none') +
     geom_dl(aes(label = District), 
             method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.7))
 ```
 
-#### Potential for Further UA Growth - District Populations
+#### **Potential for Further UA Growth - District Populations**
 
 Some of the large UAs in Kerala cover most of the urban areas of the respective districts (often named the same as the UA). In the below plots, we show how much of the area and population of the district the corresponding main UA covers.
 
@@ -203,6 +204,7 @@ dist_ua %>%
       scale_y_continuous(label=scales::comma) +
       coord_flip() +
       ggthemes::theme_tufte() +
+      theme(legend.key.size = unit(4, "mm")) +
       xlab("UA Name") +
       ylab("Population") +
       labs(caption = "Source: Census 2011",
@@ -210,7 +212,7 @@ dist_ua %>%
 
 ```
 
-The below plot shows the population growth in all the 14 districts of Kerala over the decades. While Malappuram is seeing a steady increase in both its population and population density, Kozhikode district has had a moderate increase and in Kollam, the growth has started tapering off. 
+The below plot shows the population growth in all the 14 districts of Kerala over the decades. If there is significant urban growth in the large UAs, we would expect it to reflect in the population of the corresponding district as well. While Malappuram district is seeing a steady increase in both its population and population density, Kozhikode district has had a moderate increase and in Kollam, the growth has started tapering off. 
 
 ```{r fig.width=8}
 ## Data from http://www.censusindia.gov.in/2011census/PCA/A2_Data_Table.html and
@@ -251,7 +253,76 @@ decadal %>%
     ggthemes::theme_few()
 ```
 
-#### So, what does all this mean?
+Compared to the other Kerala districts, the population of Malappuram district does seem to be growing very fast. But where does it stand when compared to the districts that correspond to some of the large urban centres of India that have seen big growth in the recent decades? This plot shows the relative growth in population for different districts and the NCT of Delhi taking 1951 population as the base. So, the fast-growing urban areas in other parts of the country have been experiencing population growths at far greater rates than Malappuram.
+
+```{r fig.width=4, fig.height=3}
+## Data from http://www.censusindia.gov.in/2011census/PCA/A2_Data_Table.html and
+## http://www.censusindia.gov.in/2011census/maps/atlas/32part1.pdf
+
+decadal_india <- read_excel('data/districts_decadal_growth.xlsx',
+                      skip = 5,
+                      col_names = c("1", "2", "District", "Year", "Population",
+                                    "6", "7", "8", "9"))
+
+decadal_india <- decadal_india %>% 
+  select(District, Year, Population) %>% 
+  filter(!is.na(Year)) %>% 
+  mutate(
+    District = zoo::na.locf(District)
+  ) %>% 
+  filter(Year >= 1951) %>% 
+  filter(District %in% c("NCT OF DELHI", "Malappuram", "Bangalore", "Ahmadabad",
+                         "Mumbai Suburban", "Pune", "Surat")) %>% 
+  group_by(District) %>% 
+  mutate(
+    Population = round(Population / min(Population), 2)
+  ) %>% 
+  ungroup()
+  
+decadal_india %>% 
+  ggplot(aes(x = Year, y = Population, colour = District)) +
+    geom_point() +
+    geom_line() +
+    scale_y_continuous(label=scales::comma) +
+    scale_colour_discrete(guide = 'none') +
+    geom_dl(aes(label = District), method = list(dl.trans(x = x + 0.2), "last.bumpup", cex = 0.6)) +
+    labs(caption = "Source: Census 2011") +
+    xlim(c(1950, 2035)) +
+    ylab("Population as a multiple of \n 1951 population") +
+    ggthemes::theme_few()
+```
+
+```{r fig.width = 7, fig.height=3}
+ua_ts <- read_csv("data/ua_pop_time_series_census2011.csv")
+
+ua_ts <- ua_ts %>% 
+  filter(UA %in% c("Malappuram", "Kozhikode", "Kollam")) %>% 
+  select(-Area) %>% 
+  rename(Dist = UA)
+
+district_ts <- decadal %>% 
+  filter(District %in% c("Malappuram", "Kozhikode", "Kollam")) %>%
+  select(-c(Area, Density)) %>% 
+  filter(Year >= 1971) %>% 
+  rename(Dist = District)
+
+ua_ts %>% 
+  inner_join(district_ts, by = c("Dist", "Year")) %>% 
+  rename(UA = Population.x, District = Population.y) %>% 
+  gather(key = "Region", value = "value", UA, District) %>% 
+  ggplot(aes(x = Year, y = value, colour = Region)) +
+    geom_line() +
+    geom_point() +
+    facet_wrap(~Dist, ncol = 3) +
+    scale_y_continuous(label=scales::comma) +
+    ylab("Population") +
+    ggthemes::theme_few() +
+    labs(caption = "Source: Census 2011") +
+    theme(axis.text.x = element_text(angle = 30))
+    
+```
+
+#### So, what does all these mean?
 
 We could make the following conclusions:  
 
@@ -262,10 +333,12 @@ We could make the following conclusions:
  * The sudden jump in the area of several Kerala UAs in the 2011 census is mostly a reflection of the change in the employment pattern of the male workforce that happened over the earlier decades. 
  * The UN data assumes certain linear trend of growth in the near future based on the recent Census values, and it may not be accurate for many of the Kerala UAs where a large fraction of villages with a non-agricultural nature of employment are already classified as urban. E.g. two-thirds of the population in Kozhikode district was identified as urban in the 2011 Census.
  
- * While the Kerala UAs pass the Census criteria on population, population density, and non-agriculture workforce, many of these areas lack certain functional characteristics and infrastructure usually associated with cities, e.g. water supply, sewage network. The structure of the economy remains heavily remittance-based.  
+ * While the Kerala UAs pass the Census criteria on population, population density, and non-agriculture workforce, many of these areas lack certain functional characteristics and infrastructure usually associated with cities, e.g. water supply, sewage network. The structure of the economy remains heavily remittance-based, with very little presence of industries or high-value services. In fact, these factors better separate the urban areas from the rural areas in places like Kerala, where the population density does not vary too much across the geography.  
+
+This analysis highlights the pitfalls in measuring urbanisation with a global yardstick. Alternatively, the process of urbanisation could be looked at in the full context of the regional economic and demographic realities. Also, the usefulness of measuring urban growth using the single dimension of population growth is questionable. If we really need to use one number to capture the growth of cities, it should be a composite score capturing several factors like the nature and density of the built environment, type and extent of social interactions, access to public amenities, migration, diversity of economic activities, etc. in addition to the demographic variables.
 
 ---  
 
 ---  
 
-*Urban Informatics Lab, Indian Institute for Human Settlements*
+*© Urban Informatics Lab, Indian Institute for Human Settlements*
